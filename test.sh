@@ -4,16 +4,13 @@
 awk -v RS= '{print > ("input-" NR ".txt")}' inputs.txt
 
 for file in input-*; do
-    if [ -e $file ];
+    if [ -e $file ] && [ "$(head -c 2 $file)" != "//" ];
     then
         echo "input: "
         cat $file
-
         echo "output:"
         ./a.out < $file
         echo "\n"
-    else
-        echo "input.txt is empty"
     fi
 
 done
